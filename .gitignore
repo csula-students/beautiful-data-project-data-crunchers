@@ -3,4 +3,7 @@
 .idea/
 build/
 *.env
-
+.classpath
+.project
+.settings/
+bin/
