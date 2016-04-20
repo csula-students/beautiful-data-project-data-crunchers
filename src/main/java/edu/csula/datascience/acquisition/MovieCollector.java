@@ -31,9 +31,8 @@ public class MovieCollector implements Collector<Daily, Daily>{
        
     }
 	@Override
-	public Collection<T> mungee(Collection<R> src) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<Daily> mungee(Collection<Daily> src) {
+		return src;
 	}
 
 }
