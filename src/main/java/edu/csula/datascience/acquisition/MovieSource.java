@@ -1,12 +1,16 @@
 package edu.csula.datascience.acquisition;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 
-public class MovieSource implements Source<Movie>{
+
+public class MovieSource {
 	String date;
 	
 	public MovieSource(String date) {
 		this.date = date;
+		Document doc = Jsoup.connect().ignoreContentType(true).userAgent("Mozilla").get();
 		//construct the jsoup here to access the page
 	}
 	
