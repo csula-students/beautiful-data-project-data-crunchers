@@ -17,22 +17,18 @@ public class MovieCollector implements Collector<Daily, Daily>{
     MongoDatabase database;
     MongoCollection<Document> collection;
     public MovieCollector() {
-        // establish database connection to MongoDB
         mongoClient = new MongoClient();
-        // select `bd-example` as testing database
         database = mongoClient.getDatabase("big-data");
-
-        // select collection by name `tweets`
         collection = database.getCollection("movies");
     }
 
     @Override
-    public void save(Collection<Daily> data) {
+    public void save(Collection<Movie> data) {
        
     }
 	@Override
-	public Collection<Daily> mungee(Collection<Daily> src) {
-		return src;
+	public Collection<Movie> mungee(Collection<Daily> src) {
+		return null;
 	}
 
 }

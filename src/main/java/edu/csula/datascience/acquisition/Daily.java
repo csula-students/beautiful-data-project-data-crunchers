@@ -12,12 +12,9 @@ public class Daily {
 	private Long totalGross;
 	private Integer daysAftRelease;
 	
-	
-	
 	public Daily(Date currentDate, String movieName, String distributor,
 			Integer changePercent, Long dailyGross, Long totalGross,
 			Integer daysAftRelease) {
-		
 		this.currentDate = currentDate;
 		this.movieName = movieName;
 		this.distributor = distributor;
