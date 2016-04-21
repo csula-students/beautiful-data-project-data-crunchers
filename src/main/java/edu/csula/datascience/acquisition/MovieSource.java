@@ -1,4 +1,6 @@
 package edu.csula.datascience.acquisition;
+import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -13,7 +15,13 @@ public class MovieSource {
 	
 	public MovieSource(String date) {
 		this.date = date;
-		Document doc = Jsoup.connect().ignoreContentType(true).userAgent("Mozilla").get();
+		
+		try {
+			Document doc = Jsoup.connect("http://www.the-numbers.com/box-office-chart/daily/"+date).ignoreContentType(true).userAgent("Mozilla").get();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//construct the jsoup here to access the page
 	}
 	
