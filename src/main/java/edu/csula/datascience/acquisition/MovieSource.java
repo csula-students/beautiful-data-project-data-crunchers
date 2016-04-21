@@ -14,6 +14,7 @@ public class MovieSource {
 	public MovieSource(String date) {
 		this.date = date;
 		Document doc = Jsoup.connect().ignoreContentType(true).userAgent("Mozilla").get();
+		this.element = doc.getElementById("page_filling_chart");
 		//construct the jsoup here to access the page
 	}
 	
