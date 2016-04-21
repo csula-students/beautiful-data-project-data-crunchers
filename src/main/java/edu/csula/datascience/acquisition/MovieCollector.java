@@ -1,17 +1,15 @@
 package edu.csula.datascience.acquisition;
 
 import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.bson.Document;
-
+import org.jsoup.nodes.Element;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class MovieCollector implements Collector<Movie, Movie>{
+public class MovieCollector implements Collector<Movie, Element>{
 
 	MongoClient mongoClient;
     MongoDatabase database;
@@ -28,7 +26,7 @@ public class MovieCollector implements Collector<Movie, Movie>{
     	
     }
 	@Override
-	public Collection<Movie> mungee(Collection<Movie> src) {
+	public Collection<Movie> mungee(Collection<Element> src) {
 		//get the jsoup dom and convert to movie
 		return null;
 	}

@@ -1,18 +1,21 @@
 package edu.csula.datascience.acquisition;
 
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-
-public class MovieSource implements Source<Movie>{
+public class MovieSource{
 	String date;
+	Element element;
+	
 	
 	public MovieSource(String date) {
 		this.date = date;
 		//construct the jsoup here to access the page
 	}
 	
-	//T as whatever jsoup return, change it later
-	public T getSource(){
-		//get the jsoup dom
+	public Elements getSource(){
+		//return element with tag <tr></tr>
+		return null;
 	}
 
 
