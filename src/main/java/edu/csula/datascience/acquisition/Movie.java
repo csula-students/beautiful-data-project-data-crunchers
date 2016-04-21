@@ -2,38 +2,30 @@ package edu.csula.datascience.acquisition;
 
 import java.util.Date;
 
-public class Daily {
+public class Movie {
 	
-	private Date currentDate;
-	private String movieName;
+	private String name;
 	private String distributor;
 	private Integer changePercent;
 	private Long dailyGross;
 	private Long totalGross;
 	private Integer daysAftRelease;
 	
-	public Daily(Date currentDate, String movieName, String distributor,
+	public Movie(Date currentDate, String name, String distributor,
 			Integer changePercent, Long dailyGross, Long totalGross,
 			Integer daysAftRelease) {
-		this.currentDate = currentDate;
-		this.movieName = movieName;
+		this.name = name;
 		this.distributor = distributor;
 		this.changePercent = changePercent;
 		this.dailyGross = dailyGross;
 		this.totalGross = totalGross;
 		this.daysAftRelease = daysAftRelease;
 	}
-	public Date getCurrentDate() {
-		return currentDate;
+	public String getName() {
+		return name;
 	}
-	public void setCurrentDate(Date currentDate) {
-		this.currentDate = currentDate;
-	}
-	public String getMovieName() {
-		return movieName;
-	}
-	public void setMovieName(String movieName) {
-		this.movieName = movieName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getDistributor() {
 		return distributor;

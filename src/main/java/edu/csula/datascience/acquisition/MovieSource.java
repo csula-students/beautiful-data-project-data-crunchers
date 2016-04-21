@@ -2,7 +2,7 @@ package edu.csula.datascience.acquisition;
 
 import java.util.Collection;
 
-public class MovieSource implements Source<Daily>{
+public class MovieSource implements Source<Movie>{
 	String date;
 	
 	public MovieSource(String date) {
@@ -15,7 +15,7 @@ public class MovieSource implements Source<Daily>{
 	}
 
 	@Override
-	public Collection<Daily> next() {
+	public Collection<Movie> next() {
 		return null;
 	}
 

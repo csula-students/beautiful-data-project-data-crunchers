@@ -11,7 +11,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class MovieCollector implements Collector<Daily, Daily>{
+public class MovieCollector implements Collector<Movie, Movie>{
 
 	MongoClient mongoClient;
     MongoDatabase database;
@@ -27,7 +27,7 @@ public class MovieCollector implements Collector<Daily, Daily>{
        
     }
 	@Override
-	public Collection<Movie> mungee(Collection<Daily> src) {
+	public Collection<Movie> mungee(Collection<Movie> src) {
 		return null;
 	}
 
