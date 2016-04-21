@@ -24,10 +24,12 @@ public class MovieCollector implements Collector<Movie, Movie>{
 
     @Override
     public void save(Collection<Movie> data) {
-       
+    	//save the movie into database
+    	
     }
 	@Override
 	public Collection<Movie> mungee(Collection<Movie> src) {
+		//get the jsoup dom and convert to movie
 		return null;
 	}
 
