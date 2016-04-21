@@ -24,10 +24,13 @@ public class MovieCollector implements Collector<Daily, Daily>{
 
     @Override
     public void save(Collection<Movie> data) {
-       
+    	//save the movie into database
+    	
     }
 	@Override
 	public Collection<Movie> mungee(Collection<Daily> src) {
+		//get the jsoup dom and convert to movie
+		
 		return null;
 	}
 

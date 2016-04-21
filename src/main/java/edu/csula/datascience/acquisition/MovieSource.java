@@ -1,22 +1,18 @@
 package edu.csula.datascience.acquisition;
 
-import java.util.Collection;
 
-public class MovieSource implements Source<Daily>{
+public class MovieSource{
 	String date;
 	
 	public MovieSource(String date) {
 		this.date = date;
+		//construct the jsoup here to access the page
+	}
+	
+	//T as whatever jsoup return, change it later
+	public T getSource(){
+		//get the jsoup dom
 	}
 
-	@Override
-	public boolean hasNext() {
-		return false;
-	}
-
-	@Override
-	public Collection<Daily> next() {
-		return null;
-	}
 
 }

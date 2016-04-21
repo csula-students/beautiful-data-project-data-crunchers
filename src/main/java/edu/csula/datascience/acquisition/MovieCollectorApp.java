@@ -10,6 +10,7 @@ public class MovieCollectorApp {
 		MovieCollector collector = new MovieCollector();
 		MovieSource source = new MovieSource("2016/04/20");
 		
+		//do similar to twitterapp, iterate through the source to get each movie
 		
 	}
 }
