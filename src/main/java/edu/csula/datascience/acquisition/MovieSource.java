@@ -3,10 +3,7 @@ import java.io.IOException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-
 
 public class MovieSource {
 	String date;
@@ -17,17 +14,15 @@ public class MovieSource {
 	}
 	
 	public Elements getSource(){
+		Elements elements = null;
 		try {
-			System.out.println("http://www.the-numbers.com/box-office-chart/daily/"+date);
-			Document doc = Jsoup.connect("http://www.the-numbers.com/box-office-chart/daily/"+date).ignoreContentType(true).userAgent("Mozilla").get();
-			Element element = doc.getElementById("page_filling_chart");
-			System.out.println(element.html());
+			Document doc = Jsoup.connect("http://www.boxofficemojo.com/daily/chart/?view=1day&sortdate="+date).userAgent("Mozilla").get();
+			elements = doc.select("#body > center > center > table > tbody > tr:eq(1) > td > table > tbody");
 		} catch (IOException e) {
 			System.out.println("failed to connect to the source website");
 			e.printStackTrace();
 		}
-		//return element with tag <tr></tr>
-		return null;
+		return elements;
 	}
 
 
