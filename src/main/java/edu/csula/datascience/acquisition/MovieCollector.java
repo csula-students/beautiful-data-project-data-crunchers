@@ -1,8 +1,14 @@
 package edu.csula.datascience.acquisition;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.print.Doc;
 
 import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.jsoup.nodes.Element;
 
 import com.mongodb.MongoClient;
@@ -23,6 +29,18 @@ public class MovieCollector implements Collector<Movie, Element>{
     @Override
     public void save(Collection<Movie> data) {
     	//save the movie into database
+        List<Document> documents = data.stream()
+                .map(item -> new Document()
+                    .append("name", item.getName())
+                    .append("distributor", item.getDistributor())
+                    .append("changePerc", item.getChangePercent())
+                    .append("dailyGross", item.getDailyGross())
+                    .append("daysAftRels", item.getDaysAftRelease())
+                    .append("totalGross",item.getTotalGross()))
+                .collect(Collectors.toList());
+
+            collection.insertMany(documents);
+
     	
     }
 	@Override
