@@ -4,18 +4,22 @@ public class Movie {
 	
 	private String name;
 	private String distributor;
-	private Long dailyGross;
-	private Long totalGross;
+	private String dailyGross;
+	private String totalGross;
 	private Integer daysAftRelease;
+	private Integer theaterCnt;
+	private String theaterPrice;
 	
 	public Movie(String name, String distributor,
-			Long dailyGross, Long totalGross,
-			Integer daysAftRelease) {
+			String dailyGross, String totalGross,
+			Integer daysAftRelease, Integer theaterCnt, String theaterPrice) {
 		this.name = name;
 		this.distributor = distributor;
 		this.dailyGross = dailyGross;
 		this.totalGross = totalGross;
 		this.daysAftRelease = daysAftRelease;
+		this.setTheaterCnt(theaterCnt);
+		this.setTheaterPrice(theaterPrice);
 	}
 	public String getName() {
 		return name;
@@ -29,16 +33,16 @@ public class Movie {
 	public void setDistributor(String distributor) {
 		this.distributor = distributor;
 	}
-	public Long getDailyGross() {
+	public String getDailyGross() {
 		return dailyGross;
 	}
-	public void setDailyGross(Long dailyGross) {
+	public void setDailyGross(String dailyGross) {
 		this.dailyGross = dailyGross;
 	}
-	public Long getTotalGross() {
+	public String getTotalGross() {
 		return totalGross;
 	}
-	public void setTotalGross(Long totalGross) {
+	public void setTotalGross(String totalGross) {
 		this.totalGross = totalGross;
 	}
 	public Integer getDaysAftRelease() {
@@ -46,6 +50,18 @@ public class Movie {
 	}
 	public void setDaysAftRelease(Integer daysAftRelease) {
 		this.daysAftRelease = daysAftRelease;
+	}
+	public Integer getTheaterCnt() {
+		return theaterCnt;
+	}
+	public void setTheaterCnt(Integer theaterCnt) {
+		this.theaterCnt = theaterCnt;
+	}
+	public String getTheaterPrice() {
+		return theaterPrice;
+	}
+	public void setTheaterPrice(String theaterPrice) {
+		this.theaterPrice = theaterPrice;
 	}
 	
 	
