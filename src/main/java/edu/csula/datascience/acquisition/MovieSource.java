@@ -17,7 +17,7 @@ public class MovieSource {
 		Elements elements = null;
 		try {
 			Document doc = Jsoup.connect("http://www.boxofficemojo.com/daily/chart/?view=1day&sortdate="+date).userAgent("Mozilla").get();
-			elements = doc.select("#body > center > center > table > tbody > tr:eq(1) > td > table > tbody");
+			elements = doc.select("#body > center > center > table > tbody > tr:eq(1) > td > table > tbody > tr:gt(0)");
 		} catch (IOException e) {
 			System.out.println("failed to connect to the source website");
 			e.printStackTrace();

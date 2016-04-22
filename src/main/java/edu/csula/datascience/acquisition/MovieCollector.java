@@ -1,6 +1,8 @@
 package edu.csula.datascience.acquisition;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.bson.Document;
 import org.jsoup.nodes.Element;
@@ -27,8 +29,16 @@ public class MovieCollector implements Collector<Movie, Element>{
     }
 	@Override
 	public Collection<Movie> mungee(Collection<Element> src) {
-		//get the jsoup dom and convert to movie
-		return null;
+		List<Movie> documents = src.stream()
+				.map(element -> new Movie(
+						element.childNode(2).childNode(0).childNode(0).childNode(0).childNode(0).toString(),
+						element.childNode(3).childNode(0).childNode(0).childNode(0).toString(),
+						Long.parseLong(element.childNode(4).childNode(0).childNode(0).childNode(0).toString()),
+						Long.parseLong(element.childNode(9).childNode(0).childNode(0).toString()),
+						Integer.parseInt(element.childNode(10).childNode(0).childNode(0).toString())
+				))
+	            .collect(Collectors.toList());
+		return documents;
 	}
 
 }
