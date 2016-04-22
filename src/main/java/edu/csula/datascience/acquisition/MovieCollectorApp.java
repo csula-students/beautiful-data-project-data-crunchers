@@ -14,6 +14,7 @@ public class MovieCollectorApp {
 		Collection<Element> elements = source.getSource();
 		if(elements != null){
 			Collection<Movie> movies = collector.mungee(elements);
+			collector.save(movies, "2016-04-15");
 		}
 	}
 }
