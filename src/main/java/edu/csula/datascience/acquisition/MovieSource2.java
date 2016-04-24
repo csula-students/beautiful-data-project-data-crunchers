@@ -17,7 +17,10 @@ public class MovieSource2 {
 		JSONObject json = null;
 		try {
 			String year = getYear();
-            JsonNode response = Unirest.post("http://www.omdbapi.com/?t"+movie+"&y="+year+"&plot=full&r=json")
+			String mn = year.length() == 0 ? movie.replace(" ", "%20") : movie.substring(0, movie.length()-7);
+			String url = "http://www.omdbapi.com/?t="+mn+"&y="+year+"&plot=full&r=json";
+			System.out.println(url);
+            JsonNode response = Unirest.post(url)
                 .header("Content-Type", "application/json")
                 .header("accept", "application/json")
                 .asJson()
@@ -25,7 +28,7 @@ public class MovieSource2 {
             
             json = response.getObject();
         } catch (UnirestException e) {
-            throw new IllegalStateException("Server may not be up and running.", e);
+            e.printStackTrace();
         }
 		return json;
 	}

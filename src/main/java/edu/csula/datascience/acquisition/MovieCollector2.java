@@ -4,6 +4,7 @@ import org.bson.Document;
 import org.json.JSONObject;
 
 import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
@@ -18,11 +19,11 @@ public class MovieCollector2 {
     }
     
     public void save(JSONObject json){
-    	if(json == null || json.getString("Response") == "false") return;
-    	System.out.println("{");
-    	for(String key : json.keySet()){
-    		System.out.println(key+": "+json.getString(key));
+    	if(json == null || json.getString("Response").equals("False")) return;
+    	FindIterable<Document> iterable = collection.find(
+    	        new Document("Title", json.getString("Title")));
+    	if(iterable.first() == null){
+    		collection.insertOne(Document.parse(json.toString()));
     	}
-    	System.out.println("}");
     }
 }

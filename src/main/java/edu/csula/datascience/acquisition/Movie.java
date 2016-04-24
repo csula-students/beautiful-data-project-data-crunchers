@@ -9,14 +9,14 @@ public class Movie {
 	private String distributor;
 	private String dailyGross;
 	private String totalGross;
-	private Integer daysAftRelease;
-	private Integer theaterCnt;
+	private String daysAftRelease;
+	private String theaterCnt;
 	private String theaterPrice;
 	private static Set<String> moviesNames = new HashSet<String>();
 	
 	public Movie(String name, String distributor,
 			String dailyGross, String totalGross,
-			Integer daysAftRelease, Integer theaterCnt, String theaterPrice) {
+			String daysAftRelease, String theaterCnt, String theaterPrice) {
 		this.name = name;
 		moviesNames.add(name);
 		this.distributor = distributor;
@@ -55,16 +55,16 @@ public class Movie {
 	public void setTotalGross(String totalGross) {
 		this.totalGross = totalGross;
 	}
-	public Integer getDaysAftRelease() {
+	public String getDaysAftRelease() {
 		return daysAftRelease;
 	}
-	public void setDaysAftRelease(Integer daysAftRelease) {
+	public void setDaysAftRelease(String daysAftRelease) {
 		this.daysAftRelease = daysAftRelease;
 	}
-	public Integer getTheaterCnt() {
+	public String getTheaterCnt() {
 		return theaterCnt;
 	}
-	public void setTheaterCnt(Integer theaterCnt) {
+	public void setTheaterCnt(String theaterCnt) {
 		this.theaterCnt = theaterCnt;
 	}
 	public String getTheaterPrice() {
