@@ -1,5 +1,6 @@
 package edu.csula.datascience.acquisition;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,6 +47,7 @@ public class MovieCollector{
     }
     
 	public Collection<Movie> mungee(Collection<Element> src) {
+		if(src == null) return (new ArrayList<Movie>());
 		List<Movie> documents = src.stream()
 				.map(element -> new Movie(
 						element.childNode(2).childNode(0).childNode(0).childNode(0).childNode(0).toString(),

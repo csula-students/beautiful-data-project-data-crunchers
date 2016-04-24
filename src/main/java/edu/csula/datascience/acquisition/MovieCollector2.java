@@ -18,8 +18,14 @@ public class MovieCollector2 {
         collection = database.getCollection("movieNames");
     }
     
+    public JSONObject mungee(JSONObject src) {
+    	if(src == null) return new JSONObject();
+    	return src;
+    }
+    
+    
     public void save(JSONObject json){
-    	if(json == null || json.getString("Response").equals("False")) return;
+    	if(json == null || (!json.has("Response")) || json.getString("Response").equals("False")) return;
     	FindIterable<Document> iterable = collection.find(
     	        new Document("Title", json.getString("Title")));
     	if(iterable.first() == null){

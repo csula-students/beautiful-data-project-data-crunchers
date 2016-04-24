@@ -1,5 +1,7 @@
 package edu.csula.datascience.acquisition;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +26,13 @@ public class MovieCollector3 {
 	        collection = database.getCollection("movieTweets");
 	    }
 	    
-	    public void save(List<Tweet> tweets, String movie){
+	    public Collection<Tweet> mungee(Collection<Tweet> src) {
+	    	if(src == null) return new ArrayList<Tweet>();
+	        return src;
+	    }
+	    
+	    
+	    public void save(Collection<Tweet> tweets, String movie){
 	    	if(tweets == null) return;
 	    	List<Document> documents = tweets.stream()
 	    	               .map(item -> new Document()

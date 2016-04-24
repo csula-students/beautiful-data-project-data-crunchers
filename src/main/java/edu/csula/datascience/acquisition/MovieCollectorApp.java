@@ -7,7 +7,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONObject;
 import org.jsoup.nodes.Element;
+
+import me.jhenrique.model.Tweet;
 
 public class MovieCollectorApp {
 
@@ -18,22 +21,22 @@ public class MovieCollectorApp {
 		for(String date: dates){
 			MovieSource source = new MovieSource(date);
 			Collection<Element> elements = source.getSource();
-			if(elements != null){
-				Collection<Movie> movies = collector.mungee(elements);
-				collector.save(movies, date);
-			}
+			Collection<Movie> movies = collector.mungee(elements);
+			collector.save(movies, date);
 		}
 		
 		MovieCollector2 collector2 = new MovieCollector2();
 		for(String movie : Movie.getMoviesNames()){
 			MovieSource2 source = new MovieSource2(movie);
-			collector2.save(source.getSource());
+			JSONObject src = collector2.mungee(source.getSource());
+			collector2.save(src);
 		}
 		
 		MovieCollector3 collector3 = new MovieCollector3();
 		for(String movie : Movie.getMoviesNames()){
 			MovieSource3 source = new MovieSource3(movie);
-			collector3.save(source.getTweets(movie), movie);
+			Collection<Tweet> src = collector3.mungee(source.getTweets(movie));
+			collector3.save(src, movie);
 		}
 		
 		
