@@ -42,7 +42,7 @@ public class TwitterCollector implements Collector<Status, Status> {
                 .append("lang", item.getLang())
                 .append("source", item.getSource()))
             .collect(Collectors.toList());
-        Document doc = new Document().append("date", " ").append("tweet", documents);
-        collection.insertOne(doc);
+
+        collection.insertMany(documents);
     }
 }

@@ -20,6 +20,7 @@ public class MovieSource2 {
 			String mn = year.length() == 0 ? movie.replace(" ", "%20") : movie.substring(0, movie.length()-7);
 			String url = "http://www.omdbapi.com/?t="+mn+"&y="+year+"&plot=full&r=json";
 			System.out.println(url);
+			
             JsonNode response = Unirest.post(url)
                 .header("Content-Type", "application/json")
                 .header("accept", "application/json")
@@ -29,7 +30,9 @@ public class MovieSource2 {
             json = response.getObject();
         } catch (UnirestException e) {
             e.printStackTrace();
-        }
+        } catch (IllegalArgumentException f) {
+        	f.printStackTrace();
+		}
 		return json;
 	}
 

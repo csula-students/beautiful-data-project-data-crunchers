@@ -7,15 +7,15 @@ import java.util.Collection;
 /**
  * A simple example of using Twitter
  */
-public class TwitterCollectorApp {
-    public static void main(String[] args) {
-        TwitterSource source = new TwitterSource(180, "#big-data");
-        TwitterCollector collector = new TwitterCollector();
-
-        while (source.hasNext()) {
-            Collection<Status> tweets = source.next();
-            Collection<Status> cleanedTweets = collector.mungee(tweets);
-            collector.save(cleanedTweets);
-        }
-    }
-}
+//public class TwitterCollectorApp {
+//    public static void main(String[] args) {
+//        //TwitterSource source = new TwitterSource(Long.MAX_VALUE, "#big-data");
+//        //TwitterCollector collector = new TwitterCollector();
+//
+////        while (source.hasNext()) {
+////            Collection<Status> tweets = source.next();
+////            Collection<Status> cleanedTweets = collector.mungee(tweets);
+////            collector.save(cleanedTweets);
+////        }
+//    }
+//}

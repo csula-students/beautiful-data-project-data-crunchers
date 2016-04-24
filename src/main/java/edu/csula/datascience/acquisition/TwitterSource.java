@@ -39,7 +39,7 @@ public class TwitterSource implements Source<Status> {
 
         Query query = new Query(searchQuery);
         query.setLang("EN");
-        query.setSince("20160404");
+        query.setSince("20140101");
         if (minId != Long.MAX_VALUE) {
             query.setMaxId(minId);
         }
