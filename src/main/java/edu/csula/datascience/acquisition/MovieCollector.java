@@ -36,7 +36,9 @@ public class MovieCollector{
 	                    .append("daysAftRels", item.getDaysAftRelease())
 	                    .append("totalGross",item.getTotalGross())
 	                    .append("theaterCnt",item.getTheaterCnt())
-	                    .append("theaterPrice",item.getTheaterPrice()))
+	                    .append("theaterPrice",item.getTheaterPrice())
+	                    .append("todayRank",item.getTodayRank())
+	                    .append("yesterdayRank",item.getYesterdayRank()))
 	                .collect(Collectors.toList());
 	        Document doc = new Document().append("date", date).append("movies", documents);
 	        collection.insertOne(doc);  
@@ -52,7 +54,9 @@ public class MovieCollector{
 						element.childNode(9).childNode(0).childNode(0).toString(),
 						element.childNode(10).childNode(0).childNode(0).toString(),
 						element.childNode(7).childNode(0).childNode(0).toString(),
-						element.childNode(8).childNode(0).childNode(0).toString()
+						element.childNode(8).childNode(0).childNode(0).toString(),
+						element.childNode(0).childNode(0).childNode(0).toString(),
+						element.childNode(1).childNode(0).childNode(0).toString()
 				))
 	            .collect(Collectors.toList());
 		return documents;
