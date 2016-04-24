@@ -50,8 +50,8 @@ public class MovieCollector{
 						element.childNode(3).childNode(0).childNode(0).childNode(0).toString(),
 						element.childNode(4).childNode(0).childNode(0).childNode(0).toString(),
 						element.childNode(9).childNode(0).childNode(0).toString(),
-						Integer.parseInt(element.childNode(10).childNode(0).childNode(0).toString()),
-						Integer.parseInt(element.childNode(7).childNode(0).childNode(0).toString()),
+						element.childNode(10).childNode(0).childNode(0).toString(),
+						element.childNode(7).childNode(0).childNode(0).toString(),
 						element.childNode(8).childNode(0).childNode(0).toString()
 				))
 	            .collect(Collectors.toList());
