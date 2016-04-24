@@ -28,6 +28,7 @@ public class TwitterSource implements Source<Status> {
     public Collection<Status> next() {
         List<Status> list = Lists.newArrayList();
         ConfigurationBuilder cb = new ConfigurationBuilder();
+        //cb.setApplicationOnlyAuthEnabled(true);
         cb.setDebugEnabled(true)
             .setOAuthConsumerKey(System.getenv("TWITTER_CONSUMER_KEY"))
             .setOAuthConsumerSecret(System.getenv("TWITTER_CONSUMER_SECRET"))
@@ -38,7 +39,7 @@ public class TwitterSource implements Source<Status> {
 
         Query query = new Query(searchQuery);
         query.setLang("EN");
-        query.setSince("20140101");
+        query.setSince("20160404");
         if (minId != Long.MAX_VALUE) {
             query.setMaxId(minId);
         }

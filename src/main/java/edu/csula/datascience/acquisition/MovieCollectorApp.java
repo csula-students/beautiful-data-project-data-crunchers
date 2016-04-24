@@ -29,6 +29,14 @@ public class MovieCollectorApp {
 			MovieSource2 source = new MovieSource2(movie);
 			collector2.save(source.getSource());
 		}
+		
+		MovieCollector3 collector3 = new MovieCollector3();
+		for(String movie : Movie.getMoviesNames()){
+			MovieSource3 source = new MovieSource3(movie);
+			collector3.save(source.getTweets(movie), movie);
+		}
+		
+		
 	}
 	
 	private static List<String> getDates(String datefrom, String dateto) throws ParseException{

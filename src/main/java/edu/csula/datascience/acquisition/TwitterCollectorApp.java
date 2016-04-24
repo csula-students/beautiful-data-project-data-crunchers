@@ -9,7 +9,7 @@ import java.util.Collection;
  */
 public class TwitterCollectorApp {
     public static void main(String[] args) {
-        TwitterSource source = new TwitterSource(Long.MAX_VALUE, "#big-data");
+        TwitterSource source = new TwitterSource(180, "#big-data");
         TwitterCollector collector = new TwitterCollector();
 
         while (source.hasNext()) {
