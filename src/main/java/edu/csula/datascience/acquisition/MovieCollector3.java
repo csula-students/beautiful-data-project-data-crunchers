@@ -25,6 +25,7 @@ public class MovieCollector3 {
 	    }
 	    
 	    public void save(List<Tweet> tweets, String movie){
+	    	if(tweets == null) return;
 	    	List<Document> documents = tweets.stream()
 	    	               .map(item -> new Document()
 	    	               .append("Tweet", item.getText()))
