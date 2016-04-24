@@ -12,19 +12,23 @@ public class Movie {
 	private String daysAftRelease;
 	private String theaterCnt;
 	private String theaterPrice;
+	private String todayRank;
+	private String yesterdayRank;
 	private static Set<String> moviesNames = new HashSet<String>();
 	
 	public Movie(String name, String distributor,
 			String dailyGross, String totalGross,
-			String daysAftRelease, String theaterCnt, String theaterPrice) {
+			String daysAftRelease, String theaterCnt, String theaterPrice, String todayRank, String yesterdayRank) {
 		this.name = name;
 		moviesNames.add(name);
 		this.distributor = distributor;
 		this.dailyGross = dailyGross;
 		this.totalGross = totalGross;
 		this.daysAftRelease = daysAftRelease;
-		this.setTheaterCnt(theaterCnt);
-		this.setTheaterPrice(theaterPrice);
+		this.theaterCnt = theaterCnt;
+		this.theaterPrice = theaterPrice;
+		this.todayRank = todayRank;
+		this.yesterdayRank = yesterdayRank;
 	}
 	
 	public static Set<String> getMoviesNames(){
@@ -72,6 +76,22 @@ public class Movie {
 	}
 	public void setTheaterPrice(String theaterPrice) {
 		this.theaterPrice = theaterPrice;
+	}
+
+	public String getTodayRank() {
+		return todayRank;
+	}
+
+	public void setTodayRank(String todayRank) {
+		this.todayRank = todayRank;
+	}
+
+	public String getYesterdayRank() {
+		return yesterdayRank;
+	}
+
+	public void setYesterdayRank(String yesterdayRank) {
+		this.yesterdayRank = yesterdayRank;
 	}
 	
 	
