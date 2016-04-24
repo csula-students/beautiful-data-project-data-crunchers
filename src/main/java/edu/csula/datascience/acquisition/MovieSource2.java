@@ -17,7 +17,7 @@ public class MovieSource2 {
 		JSONObject json = null;
 		try {
 			String year = getYear();
-			String mn = year.length() == 0 ? movie.replace(" ", "%20") : movie.substring(0, movie.length()-7);
+			String mn = year.length() == 0 ? movie.replace(" ", "%20") : movie.substring(0, movie.length()-7).replace(" ", "%20");
 			String url = "http://www.omdbapi.com/?t="+mn+"&y="+year+"&plot=full&r=json";
 			System.out.println(url);
 			
