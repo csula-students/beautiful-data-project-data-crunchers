@@ -22,12 +22,12 @@ public class Authorization {
                 .body(json)
                 .asJson()
                 .getBody();
-
+            
             token = response.getObject().getString("token");
         } catch (UnirestException e) {
             throw new IllegalStateException("Server may not be up and running.", e);
         }
-
+        	
         return token;
     }
 }

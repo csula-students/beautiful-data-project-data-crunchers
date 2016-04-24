@@ -1,5 +1,8 @@
 package edu.csula.datascience.acquisition;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Movie {
 	
 	private String name;
@@ -9,11 +12,13 @@ public class Movie {
 	private Integer daysAftRelease;
 	private Integer theaterCnt;
 	private String theaterPrice;
+	private static Set<String> moviesNames = new HashSet<String>();
 	
 	public Movie(String name, String distributor,
 			String dailyGross, String totalGross,
 			Integer daysAftRelease, Integer theaterCnt, String theaterPrice) {
 		this.name = name;
+		moviesNames.add(name);
 		this.distributor = distributor;
 		this.dailyGross = dailyGross;
 		this.totalGross = totalGross;
@@ -21,6 +26,11 @@ public class Movie {
 		this.setTheaterCnt(theaterCnt);
 		this.setTheaterPrice(theaterPrice);
 	}
+	
+	public static Set<String> getMoviesNames(){
+		return moviesNames;
+	}
+	
 	public String getName() {
 		return name;
 	}

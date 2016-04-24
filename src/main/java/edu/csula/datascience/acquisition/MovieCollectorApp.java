@@ -14,7 +14,7 @@ public class MovieCollectorApp {
 	public static void main(String[] args) throws ParseException {
 		
 		MovieCollector collector = new MovieCollector();
-		List<String> dates = getDates("2013-04-15", "2016-04-15");
+		List<String> dates = getDates("2016-04-14", "2016-04-15");
 		for(String date: dates){
 			MovieSource source = new MovieSource(date);
 			Collection<Element> elements = source.getSource();
@@ -22,6 +22,12 @@ public class MovieCollectorApp {
 				Collection<Movie> movies = collector.mungee(elements);
 				collector.save(movies, date);
 			}
+		}
+		
+		MovieCollector2 collector2 = new MovieCollector2();
+		for(String movie : Movie.getMoviesNames()){
+			MovieSource2 source = new MovieSource2(movie);
+			collector2.save(source.getSource());
 		}
 	}
 	
