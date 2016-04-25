@@ -59,6 +59,13 @@ task acquireTwitter(type: JavaExec) {
   main = 'edu.csula.datascience.acquisition.TwitterCollectorApp'
 }
 
+task acquireMovieData(type: JavaExec) {
+  classpath = sourceSets.main.runtimeClasspath
+
+  main = 'edu.csula.datascience.acquisition.MovieCollectorApp'
+}
+
+
 task wrapper(type: Wrapper) {
   gradleVersion = '2.0'
 }
