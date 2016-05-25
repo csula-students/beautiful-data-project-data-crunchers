@@ -34,6 +34,12 @@ import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 
 import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
+
+/* 
+ * 
+ */
+
+
 public class MovieCollector{
 	private Client client;
 	private Node node;
@@ -120,10 +126,10 @@ public class MovieCollector{
 				.map(element -> new Movie(
 						element.childNode(2).childNode(0).childNode(0).childNode(0).childNode(0).toString(),
 						element.childNode(3).childNode(0).childNode(0).childNode(0).toString(),
-						Long.parseLong(element.childNode(4).childNode(0).childNode(0).childNode(0).toString()),
-						Long.parseLong(element.childNode(9).childNode(0).childNode(0).toString()),
-						Integer.parseInt(element.childNode(10).childNode(0).childNode(0).toString()),
-						Integer.parseInt(element.childNode(7).childNode(0).childNode(0).toString()),
+						Long.parseLong(element.childNode(4).childNode(0).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
+						Long.parseLong(element.childNode(9).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
+						Integer.parseInt(element.childNode(10).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
+						Integer.parseInt(element.childNode(7).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
 						element.childNode(0).childNode(0).childNode(0).toString(),
 						element.childNode(1).childNode(0).childNode(0).toString(),
 						date
