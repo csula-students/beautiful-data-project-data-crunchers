@@ -6,27 +6,90 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.bson.Document;
+import org.elasticsearch.action.bulk.BackoffPolicy;
+import org.elasticsearch.action.bulk.BulkProcessor;
+import org.elasticsearch.action.bulk.BulkRequest;
+import org.elasticsearch.action.bulk.BulkResponse;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.common.unit.ByteSizeUnit;
+import org.elasticsearch.common.unit.ByteSizeValue;
+import org.elasticsearch.common.unit.TimeValue;
 import org.jsoup.nodes.Element;
 
+import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-public class MovieCollector{
+import org.elasticsearch.action.index.IndexRequest;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.common.settings.Settings;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.node.Node;
+import org.elasticsearch.search.SearchHit;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
 
-	MongoClient mongoClient;
-    MongoDatabase database;
-    MongoCollection<Document> collection;
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
+public class MovieCollector{
+	private Client client;
+	private Node node;
+	private final static String indexName = "bd-movies";
+    private final static String typeName = "movies";
+	//MongoClient mongoClient;
+    //MongoDatabase database;
+    //MongoCollection<Document> collection;
     public MovieCollector() {
-        mongoClient = new MongoClient();
-        database = mongoClient.getDatabase("big-data");
-        collection = database.getCollection("movies");
+    	
+    	node = nodeBuilder().settings(Settings.builder()
+                .put("cluster.name", "crunchers")
+                .put("path.home", "elasticsearch-data")).node();
+        client = node.client();
+    	
+//        mongoClient = new MongoClient();
+//        database = mongoClient.getDatabase("big-data");
+//        collection = database.getCollection("movies");
     }
 
     public void save(Collection<Movie> data, String date) {
     	
-    	FindIterable<Document> iterable = collection.find(
+    	Gson gson = new Gson();
+    	
+    	   BulkProcessor bulkProcessor = BulkProcessor.builder(
+    	            client,
+    	            new BulkProcessor.Listener() {
+    	                @Override
+    	                public void beforeBulk(long executionId,
+    	                                       BulkRequest request) {
+    	                }
+
+    	                @Override
+    	                public void afterBulk(long executionId,
+    	                                      BulkRequest request,
+    	                                      BulkResponse response) {
+    	                }
+
+    	                @Override
+    	                public void afterBulk(long executionId,
+    	                                      BulkRequest request,
+    	                                      Throwable failure) {
+    	                    System.out.println("Facing error while importing data to elastic search");
+    	                    failure.printStackTrace();
+    	                }
+
+						
+    	            })
+    	            .setBulkActions(10000)
+    	            .setBulkSize(new ByteSizeValue(1, ByteSizeUnit.GB))
+    	            .setFlushInterval(TimeValue.timeValueSeconds(5))
+    	            .setConcurrentRequests(1)
+    	            .setBackoffPolicy(
+    	                BackoffPolicy.exponentialBackoff(TimeValue.timeValueMillis(100), 3))
+    	            .build();
+    	
+    	/*FindIterable<Document> iterable = collection.find(
     	        new Document("date", date));
     	if(iterable.first() == null) {
 	        List<Document> documents = data.stream()
@@ -43,8 +106,13 @@ public class MovieCollector{
 	                .collect(Collectors.toList());
 	        Document doc = new Document().append("date", date).append("movies", documents);
 	        collection.insertOne(doc);  
-    	}
+    	}*/
+    	   
+    	   
+    	   
     }
+    
+ 
     
 	public Collection<Movie> mungee(Collection<Element> src) {
 		if(src == null) return (new ArrayList<Movie>());
