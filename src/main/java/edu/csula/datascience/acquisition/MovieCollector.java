@@ -51,7 +51,7 @@ public class MovieCollector{
     public MovieCollector() {
     	
     	node = nodeBuilder().settings(Settings.builder()
-                .put("cluster.name", "crunchers")
+                .put("cluster.name", "crunchers1")
                 .put("path.home", "elasticsearch-data")).node();
         client = node.client();
     	
