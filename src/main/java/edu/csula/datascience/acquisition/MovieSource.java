@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class MovieSource {
-	String date;
+	private String date;
 	
 	
 	public MovieSource(String date) {
@@ -24,6 +24,8 @@ public class MovieSource {
 		}
 		return elements;
 	}
-
-
+	public String getDate(){
+		return date;
+	}
+	
 }
