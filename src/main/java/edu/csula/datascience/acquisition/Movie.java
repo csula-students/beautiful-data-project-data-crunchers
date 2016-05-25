@@ -16,17 +16,21 @@ public class Movie {
 	private static Set<String> moviesNames = new HashSet<String>();
 	
 	public Movie(String name, String distributor,
-			long dailyGross, long totalGross,
-			int daysAftRelease, String todayRank, String yesterdayRank, String date) {
-		this.name = name;
-		moviesNames.add(name);
-		this.distributor = distributor;
-		this.dailyGross = dailyGross;
-		this.totalGross = totalGross;
-		this.daysAftRelease = daysAftRelease;
-		this.todayRank = todayRank;
-		this.yesterdayRank = yesterdayRank;
-		this.date = date;
+			String dailyGross, String totalGross,
+			String daysAftRelease, String todayRank, String yesterdayRank, String date) {
+		try{
+			this.name = name;
+			moviesNames.add(name);
+			this.distributor = distributor;
+			this.dailyGross = Long.parseLong(dailyGross);
+			this.totalGross = Long.parseLong(totalGross);
+			this.daysAftRelease = Integer.parseInt(daysAftRelease);
+			this.todayRank = todayRank;
+			this.yesterdayRank = yesterdayRank;
+			this.date = date;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	
 	public static Set<String> getMoviesNames(){

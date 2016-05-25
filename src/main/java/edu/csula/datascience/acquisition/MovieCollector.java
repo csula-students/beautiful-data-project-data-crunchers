@@ -122,6 +122,21 @@ public class MovieCollector{
     
 	public Collection<Movie> mungee(Collection<Element> src, String date) {
 		if(src == null) return (new ArrayList<Movie>());
+		List<Movie> documents = new ArrayList<Movie>();
+		for(Element element : src){
+			Movie movie = new Movie(
+					element.childNode(2).childNode(0).childNode(0).childNode(0).childNode(0).toString(),
+					element.childNode(3).childNode(0).childNode(0).childNode(0).toString(),
+					element.childNode(4).childNode(0).childNode(0).childNode(0).toString().replaceAll("[^0-9]", ""),
+					element.childNode(9).childNode(0).childNode(0).toString().replaceAll("[^0-9]", ""),
+					element.childNode(10).childNode(0).childNode(0).toString().replaceAll("[^0-9]", ""),
+					element.childNode(0).childNode(0).childNode(0).toString(),
+					element.childNode(1).childNode(0).childNode(0).toString(),
+					date
+			);
+			if(movie != null && movie.getDate() != null && movie.getDate().length() != 0) documents.add(movie);
+		}
+		/*
 		List<Movie> documents = src.stream()
 				.map(element -> new Movie(
 						element.childNode(2).childNode(0).childNode(0).childNode(0).childNode(0).toString(),
@@ -134,6 +149,7 @@ public class MovieCollector{
 						date
 				))
 	            .collect(Collectors.toList());
+	            */
 		return documents;
 	}
 
