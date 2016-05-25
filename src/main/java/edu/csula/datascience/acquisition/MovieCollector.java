@@ -21,6 +21,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchResponse;
@@ -88,7 +89,8 @@ public class MovieCollector{
     	            .setBackoffPolicy(
     	                BackoffPolicy.exponentialBackoff(TimeValue.timeValueMillis(100), 3))
     	            .build();
-    	
+    	data.forEach(item -> bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(item)))); 
+    	   
     	/*FindIterable<Document> iterable = collection.find(
     	        new Document("date", date));
     	if(iterable.first() == null) {
@@ -106,9 +108,7 @@ public class MovieCollector{
 	                .collect(Collectors.toList());
 	        Document doc = new Document().append("date", date).append("movies", documents);
 	        collection.insertOne(doc);  
-    	}*/
-    	   
-    	   
+    	}*/ 
     	   
     }
     
