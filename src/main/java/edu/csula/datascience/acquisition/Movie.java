@@ -10,7 +10,6 @@ public class Movie {
 	private Long dailyGross;
 	private Long totalGross;
 	private Integer daysAftRelease;
-	private Integer theaterCnt;
 	private String todayRank;
 	private String yesterdayRank;
 	private String date;
@@ -18,14 +17,13 @@ public class Movie {
 	
 	public Movie(String name, String distributor,
 			long dailyGross, long totalGross,
-			int daysAftRelease, int theaterCnt, String todayRank, String yesterdayRank, String date) {
+			int daysAftRelease, String todayRank, String yesterdayRank, String date) {
 		this.name = name;
 		moviesNames.add(name);
 		this.distributor = distributor;
 		this.dailyGross = dailyGross;
 		this.totalGross = totalGross;
 		this.daysAftRelease = daysAftRelease;
-		this.theaterCnt = theaterCnt;
 		this.todayRank = todayRank;
 		this.yesterdayRank = yesterdayRank;
 		this.date = date;
@@ -64,12 +62,6 @@ public class Movie {
 	}
 	public void setDaysAftRelease(int daysAftRelease) {
 		this.daysAftRelease = daysAftRelease;
-	}
-	public Integer getTheaterCnt() {
-		return theaterCnt;
-	}
-	public void setTheaterCnt(int theaterCnt) {
-		this.theaterCnt = theaterCnt;
 	}
 	public String getTodayRank() {
 		return todayRank;

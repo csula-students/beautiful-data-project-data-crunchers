@@ -129,7 +129,6 @@ public class MovieCollector{
 						Long.parseLong(element.childNode(4).childNode(0).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
 						Long.parseLong(element.childNode(9).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
 						Integer.parseInt(element.childNode(10).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
-						Integer.parseInt(element.childNode(7).childNode(0).childNode(0).toString().replaceAll("[^0-9]", "")),
 						element.childNode(0).childNode(0).childNode(0).toString(),
 						element.childNode(1).childNode(0).childNode(0).toString(),
 						date
