@@ -54,7 +54,7 @@ public class MovieCollector{
 //        collection = database.getCollection("movies");
     }
 
-    public void save(Collection<Movie> data, String date) {
+    public void save(Collection<Movie> data) {
     	
     	Gson gson = new Gson();
     	
@@ -114,19 +114,19 @@ public class MovieCollector{
     
  
     
-	public Collection<Movie> mungee(Collection<Element> src) {
+	public Collection<Movie> mungee(Collection<Element> src, String date) {
 		if(src == null) return (new ArrayList<Movie>());
 		List<Movie> documents = src.stream()
 				.map(element -> new Movie(
 						element.childNode(2).childNode(0).childNode(0).childNode(0).childNode(0).toString(),
 						element.childNode(3).childNode(0).childNode(0).childNode(0).toString(),
-						element.childNode(4).childNode(0).childNode(0).childNode(0).toString(),
-						element.childNode(9).childNode(0).childNode(0).toString(),
-						element.childNode(10).childNode(0).childNode(0).toString(),
-						element.childNode(7).childNode(0).childNode(0).toString(),
-						element.childNode(8).childNode(0).childNode(0).toString(),
+						Long.parseLong(element.childNode(4).childNode(0).childNode(0).childNode(0).toString()),
+						Long.parseLong(element.childNode(9).childNode(0).childNode(0).toString()),
+						Integer.parseInt(element.childNode(10).childNode(0).childNode(0).toString()),
+						Integer.parseInt(element.childNode(7).childNode(0).childNode(0).toString()),
 						element.childNode(0).childNode(0).childNode(0).toString(),
-						element.childNode(1).childNode(0).childNode(0).toString()
+						element.childNode(1).childNode(0).childNode(0).toString(),
+						date
 				))
 	            .collect(Collectors.toList());
 		return documents;

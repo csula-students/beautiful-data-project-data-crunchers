@@ -21,8 +21,8 @@ public class MovieCollectorApp {
 		for(String date: dates){
 			MovieSource source = new MovieSource(date);
 			Collection<Element> elements = source.getSource();
-			Collection<Movie> movies = collector.mungee(elements);
-			collector.save(movies, date);
+			Collection<Movie> movies = collector.mungee(elements, date);
+			collector.save(movies);
 		}
 		/*
 		MovieCollector2 collector2 = new MovieCollector2();
