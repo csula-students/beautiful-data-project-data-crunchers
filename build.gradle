@@ -34,6 +34,8 @@ dependencies {
   compile 'org.mongodb:mongodb-driver:3.2.2'
   compile 'org.twitter4j:twitter4j-core:4.0.4'
   compile 'org.jsoup:jsoup:1.8.3'
+  compile 'org.elasticsearch:elasticsearch:2.2.0'
+  compile 'com.google.code.gson:gson:2.6.2'
   compile 'com.googlecode.json-simple:json-simple:1.1.1'
   compile files('libs/got.jar')
   

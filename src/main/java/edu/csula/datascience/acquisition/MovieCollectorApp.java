@@ -17,14 +17,14 @@ public class MovieCollectorApp {
 	public static void main(String[] args) throws ParseException {
 		
 		MovieCollector collector = new MovieCollector();
-		List<String> dates = getDates("2010-04-14", "2016-04-15");
+		List<String> dates = getDates("2011-04-14", "2016-05-24");
 		for(String date: dates){
 			MovieSource source = new MovieSource(date);
 			Collection<Element> elements = source.getSource();
-			Collection<Movie> movies = collector.mungee(elements);
-			collector.save(movies, date);
+			Collection<Movie> movies = collector.mungee(elements, date);
+			collector.save(movies);
 		}
-		
+		/*
 		MovieCollector2 collector2 = new MovieCollector2();
 		for(String movie : Movie.getMoviesNames()){
 			MovieSource2 source = new MovieSource2(movie);
@@ -38,7 +38,7 @@ public class MovieCollectorApp {
 			Collection<Tweet> src = collector3.mungee(source.getTweets(movie));
 			collector3.save(src, movie);
 		}
-		
+		*/
 		
 	}
 	
