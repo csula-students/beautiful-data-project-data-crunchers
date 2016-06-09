@@ -37,6 +37,7 @@ dependencies {
   compile 'org.elasticsearch:elasticsearch:2.2.0'
   compile 'com.google.code.gson:gson:2.6.2'
   compile 'com.googlecode.json-simple:json-simple:1.1.1'
+  compile group: 'io.searchbox', name: 'jest', version: '2.0.2'
   compile files('libs/got.jar')
   
 

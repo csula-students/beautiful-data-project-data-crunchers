@@ -1,5 +1,6 @@
 package edu.csula.datascience.acquisition;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +17,14 @@ import org.elasticsearch.common.unit.ByteSizeValue;
 import org.elasticsearch.common.unit.TimeValue;
 import org.jsoup.nodes.Element;
 
+import io.searchbox.action.BulkableAction;
+import io.searchbox.client.JestClient;
+import io.searchbox.client.JestClientFactory;
+import io.searchbox.client.config.HttpClientConfig;
+import io.searchbox.core.Bulk;
+import io.searchbox.core.Index;
+
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
@@ -41,8 +50,8 @@ import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
 
 
 public class MovieCollector{
-	private Client client;
-	private Node node;
+	private JestClient client;
+	//private Node node;
 	private final static String indexName = "bd-movies";
     private final static String typeName = "movies";
 	//MongoClient mongoClient;
@@ -50,10 +59,18 @@ public class MovieCollector{
     //MongoCollection<Document> collection;
     public MovieCollector() {
     	
-    	node = nodeBuilder().settings(Settings.builder()
-                .put("cluster.name", "crunchers1")
-                .put("path.home", "elasticsearch-data")).node();
-        client = node.client();
+         String awsAddress = "http://search-datacrunchers-bubjyrsxvtcctsqgpqi2scqxwa.us-west-2.es.amazonaws.com/";
+         JestClientFactory factory = new JestClientFactory();
+         factory.setHttpClientConfig(new HttpClientConfig
+             .Builder(awsAddress)
+             .multiThreaded(true)
+             .build());
+         client = factory.getObject();
+    	
+//    	node = nodeBuilder().settings(Settings.builder()
+//                .put("cluster.name", "data-crunchers")
+//                .put("path.home", "elasticsearch-data")).node();
+//        client = node.client();
     	
 //        mongoClient = new MongoClient();
 //        database = mongoClient.getDatabase("big-data");
@@ -62,40 +79,40 @@ public class MovieCollector{
 
     public void save(Collection<Movie> data) {
     	
-    	Gson gson = new Gson();
+//    	Gson gson = new Gson();
     	
-    	   BulkProcessor bulkProcessor = BulkProcessor.builder(
-    	            client,
-    	            new BulkProcessor.Listener() {
-    	                @Override
-    	                public void beforeBulk(long executionId,
-    	                                       BulkRequest request) {
-    	                }
-
-    	                @Override
-    	                public void afterBulk(long executionId,
-    	                                      BulkRequest request,
-    	                                      BulkResponse response) {
-    	                }
-
-    	                @Override
-    	                public void afterBulk(long executionId,
-    	                                      BulkRequest request,
-    	                                      Throwable failure) {
-    	                    System.out.println("Facing error while importing data to elastic search");
-    	                    failure.printStackTrace();
-    	                }
-
-						
-    	            })
-    	            .setBulkActions(10000)
-    	            .setBulkSize(new ByteSizeValue(1, ByteSizeUnit.GB))
-    	            .setFlushInterval(TimeValue.timeValueSeconds(5))
-    	            .setConcurrentRequests(1)
-    	            .setBackoffPolicy(
-    	                BackoffPolicy.exponentialBackoff(TimeValue.timeValueMillis(100), 3))
-    	            .build();
-    	data.forEach(item -> bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(item)))); 
+//    	   BulkProcessor bulkProcessor = BulkProcessor.builder(
+//    	            client,
+//    	            new BulkProcessor.Listener() {
+//    	                @Override
+//    	                public void beforeBulk(long executionId,
+//    	                                       BulkRequest request) {
+//    	                }
+//
+//    	                @Override
+//    	                public void afterBulk(long executionId,
+//    	                                      BulkRequest request,
+//    	                                      BulkResponse response) {
+//    	                }
+//
+//    	                @Override
+//    	                public void afterBulk(long executionId,
+//    	                                      BulkRequest request,
+//    	                                      Throwable failure) {
+//    	                    System.out.println("Facing error while importing data to elastic search");
+//    	                    failure.printStackTrace();
+//    	                }
+//
+//						
+//    	            })
+//    	            .setBulkActions(10000)
+//    	            .setBulkSize(new ByteSizeValue(1, ByteSizeUnit.GB))
+//    	            .setFlushInterval(TimeValue.timeValueSeconds(5))
+//    	            .setConcurrentRequests(1)
+//    	            .setBackoffPolicy(
+//    	                BackoffPolicy.exponentialBackoff(TimeValue.timeValueMillis(100), 3))
+//    	            .build();
+//    	data.forEach(item -> bulkProcessor.add(new IndexRequest(indexName, typeName).source(gson.toJson(item)))); 
     	   
     	/*FindIterable<Document> iterable = collection.find(
     	        new Document("date", date));
@@ -115,6 +132,52 @@ public class MovieCollector{
 	        Document doc = new Document().append("date", date).append("movies", documents);
 	        collection.insertOne(doc);  
     	}*/ 
+    	
+    	
+    	
+    	Collection<Movie> movies = Lists.newArrayList();
+
+        int count = 0;
+
+        // for each record, we will insert data into Elastic Search
+//        parser.forEach(record -> {
+        for (Movie record: data) {
+        	movies.add(record);
+            count ++;
+            if(count == 500){
+                try {
+                        Collection<BulkableAction> actions = Lists.newArrayList();
+                        movies.stream()
+                            .forEach(tmp -> {
+                                actions.add(new Index.Builder(tmp).build());
+                            });
+                        Bulk.Builder bulk = new Bulk.Builder()
+                            .defaultIndex(indexName)
+                            .defaultType(typeName)
+                            .addAction(actions);
+                        client.execute(bulk.build());
+                        count = 0;
+                        movies = Lists.newArrayList();
+                        System.out.println("Inserted 500 documents to cloud");
+                } catch (IOException e) {
+                        e.printStackTrace();
+                }
+            }
+        }
+        try {
+        Collection<BulkableAction> actions = Lists.newArrayList();
+        movies.stream()
+            .forEach(tmp -> {
+                actions.add(new Index.Builder(tmp).build());
+            });
+        Bulk.Builder bulk = new Bulk.Builder()
+            .defaultIndex(indexName)
+            .defaultType(typeName)
+            .addAction(actions);
+			client.execute(bulk.build());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     	   
     }
     
